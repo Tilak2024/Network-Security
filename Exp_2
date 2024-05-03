@@ -1,0 +1,36 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+string encryptText(const string& plaintext , int shift){
+  string ciphertext = "";
+  for(char ch: plaintext){
+    if(isalpha(ch)){
+      char base = isupper(ch)?'A':'a';
+      ciphertext = ciphertext + static_cast<char>((ch-base+shift) % 26 + base);
+    }
+    else{
+      ciphertext += ch;
+    }
+  }
+  return ciphertext;
+}
+
+string decryptText(const string& ciphertext , int shift){
+  return encryptText(ciphertext , 26-shift);
+}
+
+int main(){
+  int shift;
+  string plaintext , ciphertext , decryptedText;
+  cout<<"Enter Plaintext:"<<endl;
+  getline(cin , plaintext);
+  cout<<"Enter shift value"<<endl;
+  cin>>shift;
+  ciphertext = encryptText(plaintext,shift);
+  cout<<"encrypted text: "<<ciphertext<<endl;
+
+  decryptedText = decryptText(ciphertext,shift);
+  cout<<"decrypted text:"<<decryptedText<<endl;
+  return 0;
+  }
